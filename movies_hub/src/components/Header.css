@@ -2,4 +2,21 @@
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+/* Dark mode base styles */
+.dark {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Navbar dark mode styles for better contrast */
+.navbar-item {
+    color: #fff;
+}
+
+.dark .navbar-item {
+    color: #000;
 }

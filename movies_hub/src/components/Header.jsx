@@ -30,7 +30,7 @@ export default function Header() {
             <div className="flex items-center">
               <img
                 alt="Movieahub"
-                src={theme === 'dark' ?  LhubImage : DhubImage}
+                src={theme === 'dark' ?  LhubImage :DhubImage}
                 className="h-20 w-auto"
               />
             </div>

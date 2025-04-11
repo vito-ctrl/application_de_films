@@ -27,15 +27,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
-  overflow: hidden;
 }
 
 .background-video {
   width: 100%;
   height: 100vh;
   object-fit: cover;
-  opacity: 0.75;
+  opacity: 0.9;
 }
 
 /* Movie Content */
@@ -54,10 +52,17 @@
 }
 
 .movie-card {
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  /* border-radius: 8px; */
+  margin: -4rem;
+  padding: 1.6rem;
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); */
+}
+
+/* Dark mode styles */
+.dark .movie-card {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); */
 }
 
 .movie-title {
@@ -66,6 +71,10 @@
   color: #f90;
   margin-bottom: 1.5rem;
   text-align: center;
+}
+
+.dark .movie-title {
+  color: #d86500;
 }
 
 .movie-main-content {
@@ -85,12 +94,20 @@
   border: 2px solid #f90;
 }
 
+.dark .movie-poster {
+  border: 2px solid #d86500;
+}
+
 .movie-meta {
   display: flex;
   justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
   color: #ddd;
+}
+
+.dark .movie-meta {
+  color: #333;
 }
 
 .movie-rating {
@@ -101,6 +118,10 @@
   border-radius: 4px;
 }
 
+.dark .movie-rating {
+  background-color: #d86500 !important;
+}
+
 .movie-info {
   flex-grow: 1;
   color: #ddd;
@@ -108,12 +129,20 @@
   flex-direction: column;
 }
 
+.dark .movie-info {
+  color: #333;
+}
+
 .movie-plot {
   font-size: 24px;
-  font-weight:bolder;
+  font-weight: bolder;
   margin-top: 10rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
+}
+
+.dark .movie-plot {
+  color: #222;
 }
 
 .movie-details {
@@ -124,13 +153,15 @@
   margin-bottom: 0.5rem;
 }
 
+.dark .movie-details strong {
+  color: #000;
+}
+
 /* Responsive Design */
 @media (max-width: 900px) {
-  
   .movie-poster {
     width: 200px
   }
-  
   
   .watch-button {
     align-self: center;
@@ -142,7 +173,6 @@
     text-align: center;
   }
   .movie-main-content {
-    /* margin-top: 30px; */
     flex-direction: column;
     align-items: center;
   }
@@ -152,6 +182,7 @@
   
   .movie-card {
     padding: 1rem;
+    margin: -2rem;
   }
   
   .movie-title {

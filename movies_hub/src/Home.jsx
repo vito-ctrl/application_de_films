@@ -1,14 +1,37 @@
 import './Home.css';
 import { useState, useEffect } from 'react';
-import vid from "./assets/videoooo.mp4";
+import vid from "./assets/4010131-uhd_4096_2160_25fps.mp4";
 import Header from './components/Header';
 
 const Home = () => {
     const [data, setData] = useState(null);
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
     useEffect(() => {
         fetchMovieData();
-    }, []);
+        
+        // Listen for theme changes in localStorage
+        const handleStorageChange = () => {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            setTheme(currentTheme);
+        };
+        
+        // Set up event listener for storage changes
+        window.addEventListener('storage', handleStorageChange);
+        
+        // Check for theme changes periodically
+        const themeChecker = setInterval(() => {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            if (currentTheme !== theme) {
+                setTheme(currentTheme);
+            }
+        }, 500);
+        
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            clearInterval(themeChecker);
+        };
+    }, [theme]);
 
     const fetchMovieData = async() => {
         try {
@@ -24,7 +47,7 @@ const Home = () => {
     };
 
     return (
-        <div className="movie-page">
+        <div className={`movie-page ${theme === 'dark' ? 'dark' : ''}`}>
             <Header />
             <div className="content-container">
                 <div className="video-background">
@@ -34,9 +57,8 @@ const Home = () => {
                 </div>
                 
                 <div className="movie-content">
-                    {data && (
+                    {data ? (
                         <div className="movie-card">
-                            
                             <div className="movie-main-content">
                                 <div className="poster-container">
                                     <h2 className="movie-title">{data.Title}</h2>
@@ -49,7 +71,7 @@ const Home = () => {
                                 </div>
                                 
                                 <div className="movie-info">
-                                    <p className="movie-plot dark:black">{data.Plot}</p>
+                                    <p className="movie-plot">{data.Plot}</p>
                                     <div className="movie-details">
                                         <p><strong>Director:</strong> {data.Director}</p>
                                         <p><strong>Starring:</strong> {data.Actors}</p>
@@ -58,6 +80,8 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
+                    ) : (
+                        <div className="loading">Loading movie data...</div>
                     )}
                 </div>
             </div>

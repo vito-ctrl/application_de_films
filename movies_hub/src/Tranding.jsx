@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Tranding.css'
 
 export default function Trending() {
   const [trending, setTrending] = useState(null);
@@ -40,7 +41,7 @@ export default function Trending() {
         const lastIndex = trending.results.length - 1;
         return prevSlide === 9 ? 0 : prevSlide + 1;
       });
-    }, 3000);
+    }, 5000);
   
     return () => clearInterval(interval);
   }, [trending]);
@@ -65,8 +66,8 @@ export default function Trending() {
   const moviesToShow = trending.results.slice(0, 10);
 
   return (
-    <div className="py-8">
-      <h2 className="text-2xl font-bold mb-20 px-4">Top Rated Movies</h2>
+    <div className="py-8 dark:bg-white">
+      <h2 className="text-2xl text-white font-bold mb-10 px-4 ">Top Rated Movies</h2>
       
       <div id="movies-carousel" className="relative w-full" data-carousel="slide">
         {/* Carousel wrapper */}
@@ -113,7 +114,7 @@ export default function Trending() {
           className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4  group" 
           onClick={handlePrevSlide}
         >
-          <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-orange-500/30 group-hover:bg-orange-600/50">
+          <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-orange-600/50">
             <svg className="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4"/>
             </svg>

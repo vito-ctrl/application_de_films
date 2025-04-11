@@ -1,38 +1,68 @@
-import './Home.css'
-import { useState, useEffect } from 'react'
-import vid from "./assets/4010131-uhd_4096_2160_25fps.mp4"
+import './Home.css';
+import { useState, useEffect } from 'react';
+import vid from "./assets/videoooo.mp4";
+import Header from './components/Header';
+
 const Home = () => {
-    const [Data, setData] = useState()
+    const [data, setData] = useState(null);
 
     useEffect(() => {
-        getdata()
-    },[])
+        fetchMovieData();
+    }, []);
 
-    const getdata = async() => {
-        try{
-            const res = await fetch('http://www.omdbapi.com/?t=game&apikey=f93e5905')
-            if(!res.ok){
-                throw new Error(`HTTP ERROR! STATUS: ${res.status}`)   
+    const fetchMovieData = async() => {
+        try {
+            const res = await fetch('http://www.omdbapi.com/?t=game&apikey=f93e5905');
+            if(!res.ok) {
+                throw new Error(`HTTP ERROR! STATUS: ${res.status}`);   
             }
-            const data = await res.json()
-            console.log("geted data: ", data.Title)
-            setData(data)
-        } catch (error){
-            console.log(error);
+            const movieData = await res.json();
+            setData(movieData);
+        } catch (error) {
+            console.error("Failed to fetch movie data:", error);
         }
-    }
+    };
 
-    return(
-        <div className="video-container">
-            <video className='w-full videoTag' autoPlay loop muted>
-                <source src={vid} type='video/mp4' />
-            </video>
-            <div className="video-overlay">
-                <h1 className='color-white'>Your Text Here</h1>
-                <p>Additional text can go here</p>
+    return (
+        <div className="movie-page">
+            <Header />
+            <div className="content-container">
+                <div className="video-background">
+                    <video className="background-video" autoPlay loop muted>
+                        <source src={vid} type="video/mp4" />
+                    </video>
+                </div>
+                
+                <div className="movie-content">
+                    {data && (
+                        <div className="movie-card">
+                            
+                            <div className="movie-main-content">
+                                <div className="poster-container">
+                                    <h2 className="movie-title">{data.Title}</h2>
+                                    <img src={data.Poster} alt={data.Title} className="movie-poster" />
+                                    <div className="movie-meta">
+                                        <span className="movie-year">{data.Year}</span>
+                                        <span className="movie-rating">{data.imdbRating}</span>
+                                        <span className="movie-runtime">{data.Runtime}</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="movie-info">
+                                    <p className="movie-plot dark:black">{data.Plot}</p>
+                                    <div className="movie-details">
+                                        <p><strong>Director:</strong> {data.Director}</p>
+                                        <p><strong>Starring:</strong> {data.Actors}</p>
+                                        <p><strong>Genre:</strong> {data.Genre}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

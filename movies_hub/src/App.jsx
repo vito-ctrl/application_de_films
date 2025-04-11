@@ -1,12 +1,13 @@
 import './App.css'
 import Header from './components/Header'
 import Home from './Home'
-function App() {
+import Tranding from './Tranding'
 
+function App() {
   return (
     <>
-    <Header/>
     <Home/>
+    <Tranding/>
     </>
   )
 }

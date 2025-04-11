@@ -1,38 +1,49 @@
 import { Disclosure } from '@headlessui/react'
-import React from 'react'
-import hubImage from '../assets/ChatGPT_Image_Apr_8__2025__01_00_35_PM-removebg-preview.png'
-
-
+import React, {useState, useEffect} from 'react'
+import DhubImage from '../assets/ChatGPT_Image_Apr_8__2025__01_00_35_PM-removebg-preview.png'
+import LhubImage from '../assets/ChatGPT_Image_Apr_11__2025__03_35_56_PM-removebg-preview.png'
+import './Header.css'
+import Msearch from '../Msearch'
+import { SunIcon } from '@heroicons/react/16/solid'
 export default function Header() {
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || 'light');
+  
+    useEffect(() => {
+      // Add or remove dark mode class on <html> tag
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      // Store user preference in localStorage
+      localStorage.setItem('theme', theme);
+    }, [theme]);
+  
+    const toggleTheme = () => {
+      setTheme(theme === 'dark' ? 'light' : 'dark');
+    };
   return (
-    <Disclosure as="nav" className="bg-zinc-900">
-      <div className="mx-auto max-w-7xl px-2 sm:px-5 lg:px-7">
-        <div className="relative flex h-12 items-center justify-between">
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center ">
+    <Disclosure as="nav" id='navbar' className="bg-black dark:bg-white absolute w-full z-20">
+      <div className="sticky mx-auto max-w-7xl px-2 sm:px-5 lg:px-7 z-20">
+        <div className="relative flex h-16 items-center justify-between">
+          <div className="flex flex-1 items-center justify-between">
+            <div className="flex items-center">
               <img
-                alt="Your Company"
-                src={hubImage}
-                className="h-40 w-auto"
-              />
-          <div className="w-full max-w-sm min-w-[200px]">
-            <div className="relative flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600">
-                <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd" />
-              </svg>
-          
-              <input
-              className="w-full bg-transparent placeholder:text-slate-400 text-slate-300 text-sm pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-              placeholder="Search Movieahub" 
+                alt="Movieahub"
+                src={theme === 'dark' ?  LhubImage : DhubImage}
+                className="h-20 w-auto"
               />
             </div>
-          </div>
+            <div className="w-full max-w-sm min-w-[200px] mx-6">
+              <Msearch/>
             </div>
+            <button
+              onClick={toggleTheme}>
+              <SunIcon className='h-6 w-6 text-orange-400'/>
+            </button>
           </div>
-          
         </div>
       </div>
     </Disclosure>
   )
 }
-

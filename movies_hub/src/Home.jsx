@@ -2,6 +2,7 @@ import './Home.css';
 import { useState, useEffect } from 'react';
 import vid from "./assets/4010131-uhd_4096_2160_25fps.mp4";
 import Header from './components/Header';
+import Topwatch from './Topwatch';
 
 const Home = () => {
     const [data, setData] = useState(null);
@@ -47,6 +48,7 @@ const Home = () => {
     };
 
     return (
+        <>
         <div className={`movie-page ${theme === 'dark' ? 'dark' : ''}`}>
             <Header />
             <div className="content-container">
@@ -86,6 +88,8 @@ const Home = () => {
                 </div>
             </div>
         </div>
+            <Topwatch/>
+        </>
     );
 };
 

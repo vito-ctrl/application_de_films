@@ -1,14 +1,18 @@
 import './App.css'
-import Header from './components/Header'
+import { BrowserRouter, Router, Route, Routes } from 'react-router-dom'
 import Home from './Home'
-import Tranding from './Tranding'
+import Trending from './Tranding'
+import Favorites from './Favorits'
 
 function App() {
   return (
-    <>
-    <Home/>
-    <Tranding/>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/tranding' element={<Trending/>}/>
+        <Route path='/favorits' element={<Favorites/>}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

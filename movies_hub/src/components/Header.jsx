@@ -5,6 +5,8 @@ import LhubImage from '../assets/ChatGPT_Image_Apr_11__2025__03_35_56_PM-removeb
 import './Header.css'
 import Msearch from '../Msearch'
 import { SunIcon } from '@heroicons/react/16/solid'
+import { Link } from 'react-router-dom'
+
 export default function Header() {
     const [theme, setTheme] = useState(localStorage.getItem("theme") || 'light');
   
@@ -37,6 +39,24 @@ export default function Header() {
             <div className="w-full max-w-sm min-w-[200px] mx-6">
               <Msearch/>
             </div>
+            <Link to={'/Favorits'}>
+            <button 
+            className='text-white dark:text-black hover:text-orange-500'>
+              Favorits
+            </button>
+            </Link>
+            <Link to={'/'}>
+            <button 
+            className='text-white dark:text-black hover:text-orange-500'>
+              Home
+            </button>
+            </Link>
+            <Link to={'/tranding'}>
+            <button
+              className='text-white dark:text-black hover:text-orange-500'>
+              Tranding
+            </button>
+            </Link>
             <button
               onClick={toggleTheme}>
               <SunIcon className='h-6 w-6 text-orange-400'/>

@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './components/Header';
-import { Heart } from 'lucide-react';
+import { Heart, Home } from 'lucide-react';
 
-export default function Trending() {
-  const [trending, setTrending] = useState([]);
+export default function Favorites() {
   const [favorites, setFavorites] = useState([]);
-  
-  const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MjE5ZDQ3M2NkYzA1YjZlODEyNzBkMTViNWVjNTE0MCIsIm5iZiI6MTc0NDEwMjkwNC43MTEsInN1YiI6IjY3ZjRlNWY4NmMzNTgzYzk3NTk5NmFjMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rObgl_DLu_QgnydpuBGbvGO2r-8Ctrh0zZpLWwERfhU'
-    }
-  };
 
   // Load favorites from localStorage on component mount
   useEffect(() => {
@@ -24,46 +14,28 @@ export default function Trending() {
     }
   }, []);
 
-  // Fetch trending movies
-  useEffect(() => {
-    fetch(url, options)
-      .then(res => res.json())
-      .then(json => setTrending(json.results))
-      .catch(err => console.error(err));
-  }, []);
-
-  // Toggle favorite status of a movie
-  const toggleFavorite = (movie) => {
-    const isFavorite = favorites.some(fav => fav.id === movie.id);
-    let updatedFavorites;
-    
-    if (isFavorite) {
-      // Remove from favorites
-      updatedFavorites = favorites.filter(fav => fav.id !== movie.id);
-    } else {
-      // Add to favorites
-      updatedFavorites = [...favorites, movie];
-    }
-    
-    // Update state and localStorage
+  // Remove a movie from favorites
+  const removeFromFavorites = (movieId) => {
+    const updatedFavorites = favorites.filter(movie => movie.id !== movieId);
     setFavorites(updatedFavorites);
     localStorage.setItem('movieFavorites', JSON.stringify(updatedFavorites));
-  };
-
-  // Check if a movie is in favorites
-  const isMovieFavorite = (movieId) => {
-    return favorites.some(fav => fav.id === movieId);
   };
 
   return (
     <div className="bg-black dark:bg-white min-h-screen">
       <Header />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-center mb-8 text-indigo-800">Popular Movies</h1>
-        
-        {trending.length > 0 ? (
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-indigo-800">My Favorite Movies</h1>
+          <Link to="/" className="flex items-center text-orange-500 hover:text-orange-700">
+            <Home className="mr-2" size={20} />
+            <span>Back to Home</span>
+          </Link>
+        </div>
+
+        {favorites.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-            {trending.map(movie => (
+            {favorites.map(movie => (
               <div key={movie.id} className="bg-black dark:bg-white rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
                 <div className="relative">
                   <img 
@@ -80,15 +52,10 @@ export default function Trending() {
                   <div className="flex justify-between items-center mb-2">
                     <h2 className="text-2xl font-bold text-gray-400 dark:text-gray-700 line-clamp-1">{movie.title}</h2>
                     <button 
-                      onClick={() => toggleFavorite(movie)}
+                      onClick={() => removeFromFavorites(movie.id)}
                       className="focus:outline-none"
                     >
-                      <Heart 
-                        size={24} 
-                        className={isMovieFavorite(movie.id) 
-                          ? "fill-red-500 text-red-500" 
-                          : "text-gray-400 dark:text-gray-600"}
-                      />
+                      <Heart size={24} className="fill-red-500 text-red-500" />
                     </button>
                   </div>
                   
@@ -119,9 +86,11 @@ export default function Trending() {
             ))}
           </div>
         ) : (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-indigo-600"></div>
-            <span className="ml-3 text-lg text-gray-700">Loading popular movies...</span>
+          <div className="bg-gray-800 dark:bg-gray-200 rounded-lg p-8 text-center">
+            <h2 className="text-xl text-gray-300 dark:text-gray-700 mb-4">You haven't added any favorite movies yet!</h2>
+            <Link to="/" className="inline-block bg-orange-500 hover:bg-orange-700 text-white dark:text-black px-6 py-3 rounded-lg text-lg font-medium transition duration-300">
+              Browse Movies
+            </Link>
           </div>
         )}
       </div>

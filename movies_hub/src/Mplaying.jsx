@@ -2,20 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './components/Header';
 import { Heart } from 'lucide-react';
-import Footer from './components/Footer';
 
-export default function Trending() {
+export default function Mplaying() {
   const [trending, setTrending] = useState([]);
   const [favorites, setFavorites] = useState([]);
   
-  const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MjE5ZDQ3M2NkYzA1YjZlODEyNzBkMTViNWVjNTE0MCIsIm5iZiI6MTc0NDEwMjkwNC43MTEsInN1YiI6IjY3ZjRlNWY4NmMzNTgzYzk3NTk5NmFjMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rObgl_DLu_QgnydpuBGbvGO2r-8Ctrh0zZpLWwERfhU'
-    }
-  };
+  const url = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1';
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MjE5ZDQ3M2NkYzA1YjZlODEyNzBkMTViNWVjNTE0MCIsIm5iZiI6MTc0NDEwMjkwNC43MTEsInN1YiI6IjY3ZjRlNWY4NmMzNTgzYzk3NTk5NmFjMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rObgl_DLu_QgnydpuBGbvGO2r-8Ctrh0zZpLWwERfhU'
+  }
+};
 
   // Load favorites from localStorage on component mount
   useEffect(() => {
@@ -60,7 +59,7 @@ export default function Trending() {
     <div className="bg-black dark:bg-white min-h-screen">
       <Header />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-center mb-8 text-indigo-800">Popular Movies</h1>
+        <h1 className="text-3xl font-bold text-center mb-8 text-orange-500">Playing Movies</h1>
         
         {trending.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
@@ -126,7 +125,6 @@ export default function Trending() {
           </div>
         )}
       </div>
-      <Footer/>
     </div>
   );
 }

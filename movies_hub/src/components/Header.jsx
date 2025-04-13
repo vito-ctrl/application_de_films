@@ -29,6 +29,7 @@ export default function Header() {
       <div className="sticky mx-auto max-w-7xl px-2 sm:px-5 lg:px-7 z-20">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-between">
+            <Link to={'/'}>
             <div className="flex items-center">
               <img
                 alt="Movieahub"
@@ -36,24 +37,25 @@ export default function Header() {
                 className="h-20 w-auto"
               />
             </div>
+            </Link>
             <div className="w-full max-w-sm min-w-[200px] mx-6">
               <Msearch/>
             </div>
-            <Link to={'/Favorits'}>
-            <button 
-            className='text-white dark:text-black hover:text-orange-500'>
-              Favorits
-            </button>
-            </Link>
             <Link to={'/'}>
             <button 
-            className='text-white dark:text-black hover:text-orange-500'>
+            className='text-white dark:text-black hover:text-orange-500 dark:hover:text-orange-500'>
               Home
+            </button>
+            </Link>
+            <Link to={'/Favorits'}>
+            <button 
+            className='text-white dark:text-black hover:text-orange-500 dark:hover:text-orange-500'>
+              Favorits
             </button>
             </Link>
             <Link to={'/tranding'}>
             <button
-              className='text-white dark:text-black hover:text-orange-500'>
+              className='text-white dark:text-black hover:text-orange-500 dark:hover:text-orange-500'>
               Tranding
             </button>
             </Link>

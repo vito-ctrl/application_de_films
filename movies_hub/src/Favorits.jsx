@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './components/Header';
 import { Heart, Home } from 'lucide-react';
+import Footer from './components/Footer';
 
 export default function Favorites() {
   const [favorites, setFavorites] = useState([]);
@@ -94,6 +95,7 @@ export default function Favorites() {
           </div>
         )}
       </div>
+      <Footer/>
     </div>
   );
 }

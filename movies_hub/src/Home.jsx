@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import vid from "./assets/4010131-uhd_4096_2160_25fps.mp4";
 import Header from './components/Header';
 import Topwatch from './Topwatch';
+import Mplaying from './Mplaying';
+import Tplaying from './Tplaying';
+import Footer from './components/Footer';
 
 const Home = () => {
     const [data, setData] = useState(null);
@@ -89,6 +92,9 @@ const Home = () => {
             </div>
         </div>
             <Topwatch/>
+            <Mplaying/>
+            <Tplaying/>
+            <Footer/>
         </>
     );
 };
